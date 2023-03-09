@@ -1,0 +1,264 @@
+//primeiro passo é criar o campo de bairro
+
+package aula03;
+
+public class Bairro {
+    
+    Integer cod;
+    String nome;
+    
+    Bairro(Integer cod, String nome){
+        this.cod = cod;
+        this.nome = nome;
+    }
+    
+}
+
+//segundo passo é declarar os funcionários já que é um projeto para calcular o salário/imposto/bônus de todos
+
+package aula03;
+
+public class Funcionarios {
+    
+    Integer mat;
+    String nome;
+    String cpf;
+    Double salario;
+    Bairro bairro;
+    Double imposto;
+    
+    void calcSalario(){
+        salario = salario - calcImposto();
+    }
+    
+    void calcSalario(Double bonus) {
+        
+        salario = salario + bonus - calcImposto();
+    }
+    
+    Double calcImposto(){
+        if(salario < 1320.0){
+            imposto = salario * 5 / 100;
+        }else {
+            imposto = salario * 10 / 100;
+        }
+        return imposto;
+    }
+        
+}
+
+//No terceiro passo chega a hora dos testes nos sujeitos
+
+package aula03;
+
+import java.util.Scanner;
+
+
+public class Teste {
+    
+    public static void main(String[] args){
+        
+        Bairro b1 = new Bairro(1, "Centro");
+        Bairro b2 = new Bairro(2, "Cachoeirinha");
+        Bairro b3 = new Bairro(3, "Japiim");
+        
+        Funcionarios fun1 = new Funcionarios();
+        VendedorLB ven1 = new VendedorLB();
+        VendedorELT vet1 = new VendedorELT();
+       
+        Scanner input = new Scanner(System.in);
+        int a, b, c;
+        
+        do {
+            
+            System.out.println("\n $$$ SISTEMA DE RH ###");
+            
+            System.out.println("\n 1- FUNCIONARIO PADRÃO: ");
+            System.out.println("\n 2- VENDEDOR LINHA BRANCA: ");
+            System.out.println("\n 3- VENDEDOR DE ELETRÔNICOS: ");
+            System.out.println("\n ESCOLHA UMA OPÇÃO: ");
+            b = input.nextInt();
+            
+            switch (b) {
+                case 1:
+                    System.out.println("\n MÓDULO DE FUNCIONÁRIO PADRÃO: ");
+                    
+                    System.out.println("\n DIGTE A MATRÍCULA: ");
+                    fun1.mat = input.nextInt();
+                    
+                    System.out.println("DIGITE O NOME: ");
+                    fun1.nome = input.next();
+                    
+                    System.out.println("DIGITE O SALÁRIO BRUTO: ");
+                    fun1.salario = input.nextDouble();
+                    
+                    System.out.println("Bairro 1: "+b1.nome);
+                    System.out.println("Bairro 2: "+b2.nome);
+                    System.out.println("Bairro 3: "+b3.nome);
+                    
+                    System.out.println("\n\n ESCOLHA UMA OPÇÃO DE BAIRRO: ");
+                    c = input.nextInt();
+                    
+                    if(c==1)
+                        fun1.bairro = b1;
+                    else if(c==2)
+                        fun1.bairro = b2;
+                    else
+                        fun1.bairro = b3;
+                    
+                    fun1.calcImposto();
+                    
+                    System.out.println("\nO FUNCIONÁRIO: "+fun1.nome);
+                    System.out.println("\nO BAIRRO: "+fun1.bairro);
+                    System.out.println("\nO SALARIO BRUTO: R$ "+fun1.salario);
+                    
+                    System.out.println("\nEsse funcionário possui bonus se sim, digite 1, "+ "se não, digite 0: ");
+                    int d = input.nextInt();
+                    
+                    if(d==1) {
+                        System.out.println("\nDigite o bonus: ");
+                        Double bonus = input.nextDouble();
+                        fun1.calcSalario(bonus);
+                    }else {
+                        fun1.calcSalario();
+                    }
+                    
+                    System.out.println("\nO IMPOSTO: R$ "+fun1.imposto);
+                    System.out.println("\nO SALARIO LÍQUIDO: R$ "+fun1.salario);
+                    break;
+                    
+                case 2:
+                    System.out.println("\n MÓDULO DE FUNCIONÁRIO PADRÃO: ");
+                    
+                    System.out.println("\n DIGTE A MATRÍCULA: ");
+                    ven1.mat = input.nextInt();
+                    
+                    System.out.println("DIGITE O NOME: ");
+                    ven1.nome = input.next();
+                    
+                    System.out.println("DIGITE O SALÁRIO BRUTO: ");
+                    ven1.salario = input.nextDouble();
+                    
+                    System.out.println("Bairro 1: "+b1.nome);
+                    System.out.println("Bairro 2: "+b2.nome);
+                    System.out.println("Bairro 3: "+b3.nome);
+                    
+                    System.out.println("\n\n ESCOLHA UMA OPÇÃO DE BAIRRO: ");
+                    c = input.nextInt();
+                    
+                    if(c==1)
+                        ven1.bairro = b1;
+                    else if(c==2)
+                        ven1.bairro = b2;
+                    else
+                        ven1.bairro = b3;
+                    
+                    ven1.calcImposto();
+                    ven1.calcComissao();
+                    
+                    System.out.println("\nO VENDEDOR: "+ven1.nome);
+                    System.out.println("\nO BAIRRO: "+ven1.bairro);
+                    System.out.println("\nO SALARIO BRUTO: R$ "+ven1.salario);
+                    ven1.calcSalario();
+                    System.out.println("\nO IMPOSTO: R$ "+ven1.imposto);
+                    System.out.println("\nO VALOR DAS VENDAS: R$ "+ven1.vendas);
+                    System.out.println("\nO VALOR DA COMISSÃO: R$ "+ven1.comissao);
+                    System.out.println("\nO SALARIO LÍQUIDO: R$ "+ven1.salario);
+                    break;
+                    
+                case 3:
+                    System.out.println("\n MÓDULO DE FUNCIONÁRIO PADRÃO: ");
+                    
+                    System.out.println("\n DIGTE A MATRÍCULA: ");
+                    vet1.mat = input.nextInt();
+                    
+                    System.out.println("DIGITE O NOME: ");
+                    vet1.nome = input.next();
+                    
+                    System.out.println("DIGITE O SALÁRIO BRUTO: ");
+                    vet1.salario = input.nextDouble();
+                    
+                    System.out.println("Bairro 1: "+b1.nome);
+                    System.out.println("Bairro 2: "+b2.nome);
+                    System.out.println("Bairro 3: "+b3.nome);
+                    
+                    System.out.println("\n\n ESCOLHA UMA OPÇÃO DE BAIRRO: ");
+                    c = input.nextInt();
+                    
+                    if(c==1)
+                        vet1.bairro = b1;
+                    else if(c==2)
+                        vet1.bairro = b2;
+                    else
+                        vet1.bairro = b3;
+                    
+                    vet1.calcImposto();
+                    vet1.calcComissao();
+                    
+                    System.out.println("\nO VENDEDOR DE ELETRÔNICO: "+vet1.nome);
+                    System.out.println("\nO BAIRRO: "+vet1.bairro);
+                    System.out.println("\nO SALARIO BRUTO: R$ "+vet1.salario);
+                    vet1.calcSalario();
+                    System.out.println("\nO IMPOSTO: R$ "+vet1.imposto);
+                    System.out.println("\nO VALOR DAS VENDAS: R$ "+vet1.valorVendas);
+                    System.out.println("\nO VALOR DA COMISSÃO: R$ "+vet1.comissao);
+                    System.out.println("\nO SALARIO LÍQUIDO: R$ "+vet1.salario);
+                    break;
+                    
+                    default:
+                    System.out.println("Opção Inválida : "+b);
+            }
+            
+            System.out.println("\n###Digite 1 p/ continuar ou 0 p/ sair: ");
+            a = input.nextInt();
+            
+        }while (a != 0);
+        System.out.println("\n### Obrigado, volte sempre!");
+    }
+}
+
+//No quarto passo finalizamos a questão de cálculos e entramos no mérito de Vendedores com comissão fora o sálario recebido
+
+package aula03;
+
+public class VendedorELT extends Funcionarios {
+    
+    Double comissao;
+    Double valorVendas;
+    
+    void calcComissao() {
+        
+        if(valorVendas <= 10000.0)
+            comissao = valorVendas * 1.5/100;
+        else if(valorVendas <= 30000.0)
+            comissao = valorVendas * 3/100;
+        else comissao = comissao * 5/100;
+    }
+    
+}
+//No quinto passo segue a ideia do quarto passo
+
+package aula03;
+
+public class VendedorLB extends Funcionarios {
+    
+    Double vendas;
+    Double comissao;
+    
+    void calcComissao(){
+        if(vendas <= 5000.0)
+            comissao = vendas * 2/100;
+        else if(vendas <= 10000.0)
+            comissao = vendas * 3/100;
+        else
+            comissao = vendas * 4/100;
+        
+        }
+    
+    void calcSalario() {
+        
+        salario = salario + comissao - calcImposto();
+    }
+    
+}
+
